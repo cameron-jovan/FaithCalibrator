@@ -52,7 +52,7 @@
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.28s ease, visibility 0.28s ease;
-            z-index: 50;
+            z-index: 40; /* overlay sits under the drawer */
         }
         .mobile-nav-overlay.open { opacity: 1; visibility: visible; }
 
@@ -61,12 +61,16 @@
             top: 0;
             right: 0;
             height: 100vh;
-            width: min(88vw, 320px);
-            background: linear-gradient(180deg, rgba(250,248,243,0.98), rgba(240,235,227,0.98));
-            box-shadow: -20px 0 40px rgba(0,0,0,0.12);
+            width: 80vw;
+            max-width: 340px;
+            background: rgba(255, 255, 255, 0.85); /* semi-transparent */
+            box-shadow: 0 2px 32px rgba(42, 30, 24, 0.09);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 0 0 0 48px;
             transform: translateX(110%);
             transition: transform 0.32s cubic-bezier(0.2,0,0,1);
-            z-index: 60;
+            z-index: 50;
             padding: 36px 24px;
             display: flex;
             flex-direction: column;
