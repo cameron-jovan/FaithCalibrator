@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FaithCalibrator | The Art of Spiritual Alignment</title>
+    <meta name="description" content="A journey for the soul. Calibrate your faith through a museum-quality digital experience.">
+    
+    <!-- Google Fonts: Cormorant Garamond (Editorial Serif) & Montserrat (Refined Sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* --- LUXURY DESIGN TOKENS --- */
+        :root {
+            --ivory-warm: #FAF8F3;
+            --beige-soft: #F0EBE3;
+            --sage-undertone: #E8E6DD;
+            --terracotta: #C97D60;
+            --burnt-clay: #B05D48;
+            --gold-muted: #D4A574;
+            --charcoal-warm: #3A3532;
+            --taupe-medium: #5A5450;
+            --taupe-light: #8A8480;
+            
+            /* Typography Scale */
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Montserrat', sans-serif;
+            
+            /* Easing */
+            --ease-luxury: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* --- GLOBAL RESET & BASE --- */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--ivory-warm);
+            color: var(--charcoal-warm);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* --- ATMOSPHERIC BACKGROUNDS --- */
+        .app-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -2;
+            background: 
+                radial-gradient(circle at 50% 40%, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 60%),
+                linear-gradient(135deg, var(--ivory-warm) 0%, var(--beige-soft) 50%, var(--sage-undertone) 100%);
+        }
+
+        /* Fine grain texture for "paper" feel */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.06;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
+        }
+
+        /* Sacred Geometry Layer */
+        .sacred-geo {
+            position: fixed;
+            top: -10vh;
+            right: -15vw;
+            width: 90vh;
+            height: 90vh;
+            z-index: -1;
+            opacity: 0.6; /* Stroke opacity handled in SVG */
+            transform: rotate(15deg);
+            pointer-events: none;
+        }
+
+        /* Divine Light Ray */
+        .light-ray {
+            position: absolute;
+            top: -20%;
+            right: 10%;
+            width: 600px;
+            height: 1000px;
+            background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 40%, rgba(255,255,255,0) 100%);
+            transform: rotate(-25deg);
+            filter: blur(60px);
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        /* --- TYPOGRAPHY & HERO --- */
+        .hero-headline {
+            font-family: var(--font-display);
+            font-weight: 300;
+            line-height: 0.9;
+            letter-spacing: -0.02em;
+            color: var(--charcoal-warm);
+            font-size: clamp(56px, 9vw, 116px);
+            text-shadow: 0 4px 60px rgba(0,0,0,0.06);
+        }
+
+        .stagger-word {
+            display: block;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeUp var(--ease-luxury) forwards;
+            animation-duration: 1.4s;
+        }
+
+        .stagger-1 { margin-left: 0; animation-delay: 0.2s; }
+        .stagger-2 { margin-left: clamp(20px, 8vw, 120px); animation-delay: 0.4s; font-style: italic; }
+        .stagger-3 { margin-left: clamp(40px, 16vw, 240px); animation-delay: 0.6s; }
+
+        /* Divider */
+        .artistic-divider {
+            width: 1px;
+            height: 120px;
+            background: linear-gradient(to bottom, transparent, var(--terracotta), transparent);
+            margin: 48px auto;
+            position: relative;
+            opacity: 0;
+            animation: fadeIn 1.5s var(--ease-luxury) 0.8s forwards;
+        }
+        .artistic-divider::after {
+            content: '❖';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--ivory-warm); /* Mask line */
+            color: var(--terracotta);
+            font-size: 18px;
+            padding: 10px 0;
+        }
+
+        /* --- FORM DESIGN --- */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.04);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1.2s var(--ease-luxury) 1.4s forwards;
+        }
+
+        .luxury-input {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(180, 170, 160, 0.4);
+            font-family: var(--font-body);
+            font-size: 16px;
+            color: var(--charcoal-warm);
+            width: 100%;
+            padding: 16px 8px;
+            transition: all 0.4s ease;
+            text-align: center;
+        }
+        .luxury-input:focus {
+            outline: none;
+            border-bottom-color: var(--terracotta);
+            transform: scale(1.02);
+        }
+        .luxury-input::placeholder {
+            color: var(--taupe-medium);
+            font-family: var(--font-display);
+            font-style: italic;
+            opacity: 0.5;
+        }
+
+        .btn-luxury {
+            background: linear-gradient(135deg, var(--terracotta), var(--burnt-clay));
+            color: #fff;
+            border: none;
+            border-radius: 999px; /* Pill shape */
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s var(--ease-luxury);
+            box-shadow: 0 10px 30px rgba(201, 125, 96, 0.2);
+        }
+        
+        .btn-luxury:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(201, 125, 96, 0.35);
+        }
+        
+        .btn-luxury::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(255,255,255,0.2), transparent);
+            opacity: 0.3;
+        }
+
+        /* --- PRODUCT BUTTON (NEW UPDATED STYLE) --- */
+        .product-button {
+            background: linear-gradient(135deg, var(--terracotta) 0%, var(--burnt-clay) 100%);
+            padding: 16px 40px;
+            border: none;
+            border-radius: 6px;
+            color: #FFFFFF;
+            font-size: 13px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(192, 125, 96, 0.25);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            display: inline-block;
+            width: auto;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .product-button:hover {
+            background: linear-gradient(135deg, #D48B6E 0%, #C06D56 100%);
+            transform: translateY(-2px);
+            box-shadow: 
+                0 8px 24px rgba(192, 125, 96, 0.4),
+                0 0 20px rgba(192, 125, 96, 0.3),
+                0 0 40px rgba(192, 125, 96, 0.15);
+            color: #FFFFFF; /* Ensure text stays white */
+        }
+
+        .product-button:active {
+            transform: translateY(0px) scale(0.98);
+            box-shadow: 0 2px 8px rgba(192, 125, 96, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .product-button {
+                padding: 14px 32px;
+                font-size: 12px;
+                width: 100%;
+            }
+        }
+
+        /* --- PRODUCT CARDS (RESOURCES) --- */
+        .product-card {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(90, 84, 80, 0.1);
+            transition: border-color 0.4s ease;
+        }
+        .product-card:hover {
+            border-color: rgba(201, 125, 96, 0.3);
+        }
+        .product-img-wrapper {
+            position: relative;
+            width: 100%;
+            /* Use aspect-ratio to force vertical/portrait shape regardless of width */
+            aspect-ratio: 3/4;
+            overflow: hidden;
+        }
+        .product-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) sepia(20%) contrast(1.05);
+            transition: transform 1.2s var(--ease-luxury), filter 0.6s ease;
+        }
+        .product-card:hover .product-img {
+            transform: scale(1.05);
+            filter: grayscale(0%) sepia(10%);
+        }
+        .overlay-tint {
+            position: absolute;
+            inset: 0;
+            background: rgba(58, 53, 50, 0.05);
+            transition: opacity 0.6s ease;
+        }
+        .product-card:hover .overlay-tint {
+            opacity: 0;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(6px); }
+        }
+
+        /* --- UTILITIES --- */
+        .font-editorial { font-family: var(--font-display); }
+        .text-gold { color: var(--gold-muted); }
+        .text-terracotta { color: var(--terracotta); }
+        
+        /* Scroll Indicator */
+        .scroll-cue {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            animation: fadeIn 1s ease 2s forwards;
+        }
+        .scroll-text {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--terracotta);
+            opacity: 0.7;
+        }
+        .scroll-arrow {
+            animation: bounce 2.5s ease-in-out infinite;
+            color: var(--terracotta);
+            opacity: 0.5;
+        }
+
+        /* Floating Elements */
+        .floating-shape {
+            position: absolute;
+            border: 1px solid var(--gold-muted);
+            border-radius: 50%;
+            opacity: 0.15;
+            z-index: -1;
+        }
+        
+    </style>
+</head>
+<body class="antialiased selection:bg-[#C97D60] selection:text-white">
+
+    <!-- 1. NOISE TEXTURE -->
+    <div class="noise-overlay"></div>
+
+    <!-- 2. ATMOSPHERIC BACKGROUND -->
+    <div class="app-background"></div>
+
+    <!-- 3. SACRED GEOMETRY ART -->
+    <div class="sacred-geo">
+        <svg width="100%" height="100%" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Vesica Piscis / Flower of Life abstraction -->
+            <g stroke="#D4A574" stroke-width="0.5" stroke-opacity="0.15">
+                <circle cx="250" cy="250" r="150" />
+                <circle cx="350" cy="250" r="150" />
+                <circle cx="150" cy="250" r="150" />
+                <circle cx="250" cy="150" r="150" />
+                <circle cx="250" cy="350" r="150" />
+                <circle cx="250" cy="250" r="240" stroke-opacity="0.08" />
+                <line x1="0" y1="0" x2="500" y2="500" stroke-opacity="0.05" />
+            </g>
+        </svg>
+    </div>
+    <div class="light-ray"></div>
+
+    <!-- 4. FLOATING DECORATIONS -->
+    <div class="floating-shape" style="top: 15%; right: 8%; width: 60px; height: 60px;"></div>
+    <div class="floating-shape" style="bottom: 20%; left: 5%; width: 120px; height: 120px; border-radius: 0; transform: rotate(45deg);"></div>
+
+    <!-- MAIN CONTENT WRAPPER -->
+    <main class="relative z-10">
+
+        <!-- NAVIGATION -->
+        <nav class="w-full px-8 py-8 flex justify-between items-center fade-in-nav opacity-0" style="animation: fadeIn 1s ease 0.5s forwards;">
+            <a href="#" class="text-xs font-bold tracking-[0.25em] text-terracotta hover:opacity-80 transition-opacity">FAITHCALIBRATOR</a>
+            <div class="hidden md:flex gap-8 text-xs tracking-[0.1em] text-charcoal-warm opacity-70">
+                <a href="#" class="hover:text-terracotta transition-colors">HOME</a>
+                <a href="#about" class="hover:text-terracotta transition-colors">ABOUT</a>
+                <a href="#sacred-tools" class="hover:text-terracotta transition-colors">SHOP</a>
+            </div>
+            <div class="md:hidden">
+                <i data-lucide="menu" class="text-[#5A5450] w-5 h-5"></i>
+            </div>
+        </nav>
+
+        <!-- HERO SECTION -->
+        <header class="min-h-[90vh] flex flex-col items-center justify-center relative px-4 md:px-0 pb-24">
+            
+            <!-- Staggered Headline -->
+            <h1 class="hero-headline flex flex-col mb-8 w-full max-w-5xl mx-auto relative z-20">
+                <span class="stagger-word stagger-1">CALIBRATE</span>
+                <span class="stagger-word stagger-2">YOUR</span>
+                <span class="stagger-word stagger-3">FAITH</span>
+            </h1>
+
+            <!-- Artistic Divider -->
+            <div class="artistic-divider"></div>
+
+            <!-- Sub-content Wrapper: Grid for editorial offset -->
+            <div class="w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-start mt-8">
+                
+                <!-- Tagline & Description (Left/Center Offset) -->
+                <div class="col-span-1 md:col-span-5 md:col-start-2 text-center md:text-left opacity-0" style="animation: fadeUp 0.8s var(--ease-luxury) 1.2s forwards;">
+                    <h2 class="font-editorial italic text-2xl md:text-3xl text-terracotta mb-6 tracking-wide">
+                        Journey for the Soul
+                    </h2>
+                    <p class="font-body text-[17px] md:text-[19px] leading-[1.9] text-[#5A5450] opacity-85 max-w-md mx-auto md:mx-0">
+                        A collection of resources tailored to deepen your spiritual walk through intentional simplicity and sacred practice. Guiding couples and families to build their lives on the unshakable foundation of Christ.
+                    </p>
+                </div>
+
+                <!-- Glass Email Form (Right Offset) -->
+                <div class="col-span-1 md:col-span-5 md:col-start-8 mt-12 md:mt-0 w-full">
+                    <div class="glass-card p-10 rounded-xl w-full max-w-md mx-auto md:ml-auto">
+                        
+                        <!-- Social Proof -->
+                        <div class="text-center mb-8">
+                            <p class="text-[10px] tracking-[0.2em] text-[#8A8480] font-medium">
+                                · JOIN 2,000+ OTHERS ·
+                            </p>
+                        </div>
+
+                        <form class="flex flex-col gap-8">
+                            <div class="relative">
+                                <input type="email" 
+                                       class="luxury-input" 
+                                       placeholder="Enter your email address"
+                                       aria-label="Email Address">
+                            </div>
+                            
+                            <button type="submit" class="btn-luxury py-4 px-8 w-[240px] mx-auto flex items-center justify-center gap-3 group">
+                                <span>Begin Journey</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="scroll-cue">
+                <span class="scroll-text">Explore</span>
+                <i data-lucide="chevron-down" class="scroll-arrow w-4 h-4"></i>
+            </div>
+
+        </header>
+
+        <!-- SPACER FOR SCROLL -->
+        <div class="h-24 w-full"></div>
+
+        <!-- ABOUT SECTION -->
+        <section id="about" class="w-full max-w-7xl mx-auto px-6 py-24 relative">
+             <div class="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-24">
+                <!-- Sticky Title -->
+                <div class="md:col-span-4 relative">
+                    <div class="md:sticky md:top-32">
+                        <span class="text-[10px] tracking-[0.3em] text-terracotta uppercase mb-4 block">The Mission</span>
+                        <h2 class="font-editorial text-4xl md:text-5xl text-charcoal-warm mb-6 leading-tight">
+                            Built on the <br/> <span class="italic text-terracotta">Rock</span>
+                        </h2>
+                        <div class="w-12 h-px bg-charcoal-warm opacity-20 mb-6"></div>
+                    </div>
+                </div>
+
+                <!-- Content Column -->
+                <div class="md:col-span-8 space-y-16">
+                    <div>
+                        <p class="font-editorial text-2xl md:text-3xl leading-relaxed text-[#5A5450] mb-8">
+                            At FaithCalibrator, we believe that every relationship journey—whether you're preparing for marriage, newly married, or raising a family—deserves to be rooted in Christ and built on the unshakable foundation of God's Word.
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        <div class="border-l border-terracotta border-opacity-30 pl-8">
+                            <h3 class="font-editorial text-2xl mb-4">Our Mission</h3>
+                            <p class="font-body text-sm leading-7 text-taupe-medium">
+                                We create intentional, biblically-grounded resources that help couples and families deepen their spiritual walk through sacred practice and intentional simplicity. Our guided devotionals are designed to transform your relationship into a covenant that honors God.
+                            </p>
+                        </div>
+                        <div class="border-l border-terracotta border-opacity-30 pl-8">
+                            <h3 class="font-editorial text-2xl mb-4">Why "Calibrate"?</h3>
+                            <p class="font-body text-sm leading-7 text-taupe-medium">
+                                Just as an instrument must be calibrated to produce true sound, our relationships must be continually aligned with God's truth to reflect His purpose. We help you calibrate your faith journey—together.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-[rgba(255,255,255,0.4)] p-8 md:p-12 rounded-lg border border-[rgba(255,255,255,0.6)] backdrop-blur-sm">
+                        <h3 class="font-editorial text-2xl mb-6 text-center">Our Approach</h3>
+                        <ul class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm font-medium tracking-wide text-taupe-medium">
+                            <li class="flex items-center gap-3"><span class="text-terracotta">❖</span> Rooted in Scripture (KJV & NIV)</li>
+                            <li class="flex items-center gap-3"><span class="text-terracotta">❖</span> Covenant-focused, not contract-based</li>
+                            <li class="flex items-center gap-3"><span class="text-terracotta">❖</span> Theological depth + practical application</li>
+                            <li class="flex items-center gap-3"><span class="text-terracotta">❖</span> Marriage mirroring Christ & the Church</li>
+                        </ul>
+                    </div>
+                </div>
+             </div>
+        </section>
+
+        <!-- RESOURCES / SHOP SECTION -->
+        <section id="sacred-tools" class="w-full max-w-7xl mx-auto px-6 py-24">
+            
+            <div class="flex flex-col items-center mb-20">
+                <span class="text-[10px] tracking-[0.3em] text-terracotta uppercase mb-4">Curated Collection</span>
+                <h2 class="font-editorial text-4xl md:text-5xl text-charcoal-warm">Sacred Tools</h2>
+                <div class="w-px h-16 bg-terracotta opacity-40 mt-8"></div>
+            </div>
+
+            <!-- Editorial Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-16">
+                
+                <!-- Product 1: Calibrated in Christ -->
+                <div class="product-card group cursor-pointer flex flex-col h-full">
+                    <div class="product-img-wrapper">
+                        <div class="overlay-tint"></div>
+                        <!-- Wedding rings on flowers -->
+                        <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=1600&auto=format&fit=crop" alt="Calibrated in Christ" class="product-img">
+                    </div>
+                    <div class="pt-8 px-4 text-center flex-1 flex flex-col">
+                        <h3 class="font-editorial text-2xl mb-2 group-hover:text-terracotta transition-colors leading-tight">Calibrated in Christ</h3>
+                        <p class="font-editorial italic text-lg text-terracotta mb-3">12 Weeks to Kingdom Marriage</p>
+                        <p class="font-body text-xs text-taupe-light tracking-widest uppercase mb-6">A Pre-Wedding Journey for Engaged Couples</p>
+                        <div class="mt-auto mb-6">
+                            <a href="https://stan.store/FaithCalibrator/FaithCalibrator_store/page/3908404" target="_blank" class="product-button">Get My Copy</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2: Calibrated for Life -->
+                <div class="product-card group cursor-pointer flex flex-col h-full md:translate-y-12"> <!-- Staggered -->
+                    <div class="product-img-wrapper">
+                        <div class="overlay-tint"></div>
+                        <!-- Heart in nature -->
+                        <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=1600&auto=format&fit=crop" alt="Calibrated for Life" class="product-img">
+                    </div>
+                    <div class="pt-8 px-4 text-center flex-1 flex flex-col">
+                        <h3 class="font-editorial text-2xl mb-2 group-hover:text-terracotta transition-colors leading-tight">Calibrated for Life</h3>
+                        <p class="font-editorial italic text-lg text-terracotta mb-3">12 Months of Growing Together</p>
+                        <p class="font-body text-xs text-taupe-light tracking-widest uppercase mb-6">A Newlywed Devotional & Growth Plan</p>
+                        <div class="mt-auto mb-6">
+                            <a href="https://stan.store/FaithCalibrator/FaithCalibrator_store/page/3908416" target="_blank" class="product-button">Get My Copy</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3: The Calibrated Family -->
+                <div class="product-card group cursor-pointer flex flex-col h-full">
+                    <div class="product-img-wrapper">
+                        <div class="overlay-tint"></div>
+                        <!-- Updated Image: Specific Unsplash image provided -->
+                        <img src="https://plus.unsplash.com/premium_photo-1668197658003-1254191a6bfd?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="The Calibrated Family" class="product-img">
+                    </div>
+                    <div class="pt-8 px-4 text-center flex-1 flex flex-col">
+                        <h3 class="font-editorial text-2xl mb-2 group-hover:text-terracotta transition-colors leading-tight">The Calibrated Family</h3>
+                        <p class="font-editorial italic text-lg text-terracotta mb-3">12 Months of Kingdom Parenting</p>
+                        <p class="font-body text-xs text-taupe-light tracking-widest uppercase mb-6">A Family Devotional & Growth Plan</p>
+                        <div class="mt-auto mb-6">
+                            <a href="https://stan.store/FaithCalibrator/FaithCalibrator_store/page/3914905" target="_blank" class="product-button">Get My Copy</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- LUXURY FOOTER -->
+        <footer class="mt-24 border-t border-[#5A5450] border-opacity-20 bg-[rgba(250,248,243,0.8)]">
+            <div class="max-w-7xl mx-auto px-6 py-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="text-[10px] tracking-[0.15em] text-[#8A8480]">
+                    &copy; 2025 FAITHCALIBRATOR. ALL RIGHTS RESERVED.
+                </div>
+                <div class="flex flex-wrap justify-center gap-6 md:gap-8">
+                    <a href="https://instagram.com/faithcalibrator" target="_blank" class="text-[10px] tracking-[0.15em] text-[#8A8480] hover:text-terracotta transition-colors">INSTAGRAM</a>
+                    <a href="https://facebook.com/faithcalibrator" target="_blank" class="text-[10px] tracking-[0.15em] text-[#8A8480] hover:text-terracotta transition-colors">FACEBOOK</a>
+                    <a href="https://tiktok.com/@faithcalibrator" target="_blank" class="text-[10px] tracking-[0.15em] text-[#8A8480] hover:text-terracotta transition-colors">TIKTOK</a>
+                    <a href="https://youtube.com/@faithcalibrator" target="_blank" class="text-[10px] tracking-[0.15em] text-[#8A8480] hover:text-terracotta transition-colors">YOUTUBE</a>
+                    <a href="#" class="text-[10px] tracking-[0.15em] text-[#8A8480] hover:text-terracotta transition-colors">CONTACT</a>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- Init Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
