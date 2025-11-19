@@ -177,16 +177,32 @@
         }
 
         /* --- FORM DESIGN --- */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.04);
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeUp 1.2s var(--ease-luxury) 1.4s forwards;
-        }
+.glass-card {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.04), 0 8px 32px rgba(201,125,96,0.13);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 1.2s var(--ease-luxury) 1.4s forwards, softBounce 3s cubic-bezier(.7,.4,.4,1.4) 2.6s infinite;
+}
+
+/* Fade-in animation (keep as is, triggers on page load) */
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Soft bounce animation for gentle floating effect */
+@keyframes softBounce {
+    0%   { transform: translateY(0); box-shadow: 0 20px 40px rgba(0,0,0,0.04), 0 8px 32px rgba(201,125,96,0.13);}
+    50%  { transform: translateY(-8px); box-shadow: 0 26px 56px rgba(0,0,0,0.08), 0 18px 40px rgba(201,125,96,0.19);}
+    100% { transform: translateY(0); box-shadow: 0 20px 40px rgba(0,0,0,0.04), 0 8px 32px rgba(201,125,96,0.13);}
+}
+
 
         .luxury-input {
             background: transparent;
@@ -451,48 +467,36 @@
                     <div class="glass-card p-10 rounded-xl w-full max-w-md mx-auto md:ml-auto">
                         
                         <!-- Social Proof -->
-               <div class="text-center mb-8">
-  <span class="text-[10px] tracking-[0.15em] text-[#C97D60] uppercase font-medium">
-    Connect With Us
-  </span>
-  <div class="mt-3 text-md text-[#2C2C2C] mb-6">
-    Follow FaithCalibrator for inspiration and updates.
-  </div>
-  <div class="flex justify-center gap-6 mt-3">
-    <a href="https://instagram.com/faithcalibrator" target="_blank" aria-label="Instagram">
-      <!-- Instagram SVG -->
-      <svg height="28" width="28" viewBox="0 0 24 24" fill="none" stroke="#C97D60" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="2" y="2" width="20" height="20" rx="5"></rect>
-        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-        <line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line>
-      </svg>
-    </a>
-    <a href="https://facebook.com/faithcalibrator" target="_blank" aria-label="Facebook">
-      <!-- Facebook SVG -->
-      <svg height="28" width="28" viewBox="0 0 24 24" fill="none" stroke="#C97D60" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="2" y="2" width="20" height="20" rx="5"></rect>
-        <path d="M16 8v-2a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v2H8v4h2v8h4v-8h2l1-4h-3z"></path>
-      </svg>
-    </a>
-    <a href="https://tiktok.com/@faithcalibrator" target="_blank" aria-label="TikTok">
-      <!-- TikTok SVG -->
-      <svg height="28" width="28" viewBox="0 0 24 24" fill="none" stroke="#C97D60" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="2" y="2" width="20" height="20" rx="5"></rect>
-        <path d="M9 8v8a3 3 0 0 0 6 0V8"></path>
-        <path d="M15 8h2v4a2 2 0 0 1-4 0"></path>
-      </svg>
-    </a>
-    <a href="https://youtube.com/@faithcalibrator" target="_blank" aria-label="YouTube">
-      <!-- YouTube SVG -->
-      <svg height="28" width="28" viewBox="0 0 24 24" fill="none" stroke="#C97D60" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="2" y="2" width="20" height="20" rx="5"></rect>
-        <polygon points="10 8 16 12 10 16 10 8"></polygon>
-      </svg>
-    </a>
-  </div>
-  <div class="mt-6 text-xs text-[#8A8480]">
-    <span>We appreciate every follow and share as we build Christ-centered families together.</span>
-  </div>
+           <div class="flex justify-center gap-7 mt-3">
+  <!-- Instagram -->
+  <a href="https://instagram.com/faithcalibrator" target="_blank" aria-label="Instagram">
+    <svg height="40" width="40" viewBox="0 0 40 40" fill="none" stroke="#C97D60" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="6" y="6" width="28" height="28" rx="8"></rect>
+      <circle cx="20" cy="20" r="7"></circle>
+      <circle cx="28" cy="12" r="2"></circle>
+    </svg>
+  </a>
+  <!-- Facebook -->
+  <a href="https://facebook.com/faithcalibrator" target="_blank" aria-label="Facebook">
+    <svg height="40" width="40" viewBox="0 0 40 40" fill="none" stroke="#C97D60" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="6" y="6" width="28" height="28" rx="8"></rect>
+      <path d="M22 12h-3a2 2 0 0 0-2 2v3h-3v4h3v8h4v-8h3l1-4h-4z"></path>
+    </svg>
+  </a>
+  <!-- TikTok -->
+  <a href="https://tiktok.com/@faithcalibrator" target="_blank" aria-label="TikTok">
+    <svg height="40" width="40" viewBox="0 0 40 40" fill="none" stroke="#C97D60" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="6" y="6" width="28" height="28" rx="8"></rect>
+      <path d="M24 14c0 1.6 1.3 3 3 3v4.5c0 3.2-2.6 5.8-5.8 5.8s-5.8-2.6-5.8-5.8 2.6-5.8 5.8-5.8V27"></path>
+    </svg>
+  </a>
+  <!-- YouTube -->
+  <a href="https://youtube.com/@faithcalibrator" target="_blank" aria-label="YouTube">
+    <svg height="40" width="40" viewBox="0 0 40 40" fill="none" stroke="#C97D60" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="6" y="6" width="28" height="28" rx="8"></rect>
+      <polygon points="16,14 28,20 16,26 16,14"></polygon>
+    </svg>
+  </a>
 </div>
 
                     </div>
