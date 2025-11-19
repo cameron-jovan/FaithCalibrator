@@ -44,44 +44,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        /* --- MOBILE NAV / HAMBURGER --- */
-        .mobile-nav-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.45);
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.28s ease, visibility 0.28s ease;
-            z-index: 40; /* overlay sits under the drawer */
-        }
-        .mobile-nav-overlay.open { opacity: 1; visibility: visible; }
-
-        .mobile-nav {
-            position: fixed;
-            top: 0;
-            right: 0;
-            height: 100vh;
-            width: 80vw;
-            max-width: 340px;
-            background: rgba(255, 255, 255, 0.85); /* semi-transparent */
-            box-shadow: 0 2px 32px rgba(42, 30, 24, 0.09);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border-radius: 0 0 0 48px;
-            transform: translateX(110%);
-            transition: transform 0.32s cubic-bezier(0.2,0,0,1);
-            z-index: 50;
-            padding: 36px 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-        }
-        .mobile-nav.open { transform: translateX(0); }
-        .mobile-nav a { color: var(--charcoal-warm); text-decoration: none; font-weight: 600; }
-        .mobile-nav .mobile-cta { margin-top: auto; }
-
-        /* Make sure the existing nav visuals adapt on small screens */
-        nav .brand { font-size: 12px; }
+        /* (Mobile off-canvas menu removed) */
         /* --- LUXURY DESIGN TOKENS --- */
         :root {
             --ivory-warm: #FAF8F3;
@@ -469,25 +432,10 @@
                 <a href="#about" class="hover:text-terracotta transition-colors">ABOUT</a>
                 <a href="#sacred-tools" class="hover:text-terracotta transition-colors">SHOP</a>
             </div>
-            <div class="md:hidden">
-                <button id="mobile-menu-button" class="flex items-center justify-center p-2 rounded" aria-controls="mobile-navigation" aria-expanded="false" aria-label="Open navigation">
-                    <i data-lucide="menu" class="text-[#5A5450] w-6 h-6"></i>
-                </button>
+            <div class="ml-4">
+                <a href="#sacred-tools" class="product-button">Shop Now</a>
             </div>
         </nav>
-
-        <!-- Mobile navigation overlay + drawer -->
-        <div id="mobile-nav-overlay" class="mobile-nav-overlay" tabindex="-1"></div>
-        <aside id="mobile-navigation" class="mobile-nav" aria-hidden="true">
-            <nav aria-label="Mobile Navigation">
-                <a href="#" class="block py-3">Home</a>
-                <a href="#about" class="block py-3">About</a>
-                <a href="#sacred-tools" class="block py-3">Shop</a>
-            </nav>
-            <div class="mobile-cta">
-                <a href="#" class="product-button w-full text-center">Shop Now</a>
-            </div>
-        </aside>
 
         <!-- HERO SECTION -->
         <header class="min-h-[90vh] flex flex-col items-center justify-center relative px-4 md:px-0 pb-24">
@@ -711,42 +659,6 @@
     <!-- Init Icons -->
     <script>
         lucide.createIcons();
-
-        (function(){
-            const btn = document.getElementById('mobile-menu-button');
-            const nav = document.getElementById('mobile-navigation');
-            const overlay = document.getElementById('mobile-nav-overlay');
-            if(!btn || !nav || !overlay) return;
-
-            function setOpen(open){
-                btn.setAttribute('aria-expanded', String(!!open));
-                nav.classList.toggle('open', !!open);
-                overlay.classList.toggle('open', !!open);
-                nav.setAttribute('aria-hidden', String(!open));
-                if(open){
-                    // Focus first link inside nav
-                    const firstLink = nav.querySelector('a');
-                    if(firstLink) firstLink.focus();
-                    // prevent body scroll
-                    document.documentElement.style.overflow = 'hidden';
-                } else {
-                    document.documentElement.style.overflow = '';
-                    btn.focus();
-                }
-            }
-
-            btn.addEventListener('click', function(e){
-                const isOpen = btn.getAttribute('aria-expanded') === 'true';
-                setOpen(!isOpen);
-            });
-
-            overlay.addEventListener('click', function(){ setOpen(false); });
-
-            // Close on Escape
-            document.addEventListener('keydown', function(e){
-                if(e.key === 'Escape') setOpen(false);
-            });
-        })();
     </script>
 </body>
 </html>
